@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-anniversary-50: #f0f6f9;
+  --color-anniversary-100: #d6e5ec;
+  --color-anniversary-200: #b8d2de;
+  --color-anniversary-300: #9abfcf;
+  --color-anniversary-400: #7cacc0;
+  --color-anniversary-500: #68a2b9;
+  --color-anniversary-600: #558fa6;
+  --color-anniversary-700: #437c93;
+  --color-anniversary-800: #316980;
+  --color-anniversary-900: #163f49;
+  --color-silver: #c0c0c0;
+  --color-blue-card: #68a2b9;
+  --color-blue-dark: #163f49;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-playfair);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f0f6f9;
+  color: #163f49;
+}
+
+::selection {
+  background: #163f49;
+  color: #fff;
+}
