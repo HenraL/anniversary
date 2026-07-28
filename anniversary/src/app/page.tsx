@@ -1,5 +1,6 @@
-import type { ReactNode } from "react";
-import { headers } from "next/headers";
+"use client";
+
+import { useState, useEffect } from "react";
 
 interface ScheduleItem {
   time: string;
@@ -82,21 +83,20 @@ const content: Record<Lang, Content> = {
 
 const navIds = ["celebration", "schedule", "dress-code", "venue", "brunch"];
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<{ lang?: string }>;
-}) {
-  const { lang: urlLang } = await searchParams;
+export default function Home() {
+  const [lang, setLang] = useState<Lang>("fr");
 
-  let lang: Lang;
-  if (urlLang === "en" || urlLang === "fr") {
-    lang = urlLang;
-  } else {
-    const headersList = await headers();
-    const accept = headersList.get("accept-language") || "";
-    const browserLang = accept.split(",")[0]?.split("-")[0]?.toLowerCase();
-    lang = browserLang === "fr" ? "fr" : "en";
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const l = params.get("lang");
+    if (l === "en" || l === "fr") setLang(l);
+  }, []);
+
+  function toggleLang(e: React.MouseEvent) {
+    e.preventDefault();
+    const next: Lang = lang === "en" ? "fr" : "en";
+    setLang(next);
+    window.history.replaceState(null, "", `?lang=${next}`);
   }
 
   const t = content[lang];
@@ -108,7 +108,10 @@ export default async function Home({
   }));
 
   return (
-        <div className="font-sans text-anniversary-900 min-h-screen">
+    <div key={lang} className="font-sans text-anniversary-900 min-h-screen">
+      <div className="fixed top-0 left-0 z-[100] bg-black text-white text-xs px-2 py-1">
+        lang={lang}
+      </div>
       {/* ── Sticky top bar ── */}
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-anniversary-100">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
@@ -133,6 +136,7 @@ export default async function Home({
             <span className="w-px h-4 bg-anniversary-200" />
             <a
               href={`?lang=${otherLang}`}
+              onClick={toggleLang}
               className="font-medium text-blue-dark hover:text-blue-card transition-colors"
             >
               {otherLang.toUpperCase()}
@@ -143,6 +147,7 @@ export default async function Home({
           <div className="flex md:hidden items-center gap-3">
             <a
               href={`?lang=${otherLang}`}
+              onClick={toggleLang}
               className="text-xs font-medium text-blue-dark hover:text-blue-card transition-colors uppercase"
             >
               {otherLang.toUpperCase()}
@@ -189,8 +194,6 @@ export default async function Home({
             10 Voie Romaine · Douvres-la-Délivrande
           </p>
         </section>
-
-
 
         {/* ── Celebration ── */}
         <Section id="celebration" className="bg-white/50">
