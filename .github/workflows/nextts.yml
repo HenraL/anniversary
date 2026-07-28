@@ -22,7 +22,7 @@
 # PROJECT: AsperHeader
 # FILE: nextts.yml
 # CREATION DATE: 28-07-2026
-# LAST Modified: 14:4:35 28-07-2026
+# LAST Modified: 16:30:55 28-07-2026
 # DESCRIPTION:
 # This is the flow in charge of deploying the page
 # /STOP
@@ -59,6 +59,7 @@ concurrency:
 
 env:
   CWD: ./anniversary
+  GENERATED_ASSETS: ./anniversary/out/
 
 jobs:
   # Build job
@@ -112,7 +113,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: ./out
+          path: ${{ env.GENERATED_ASSETS}}
 
   # Deployment job
   deploy:
