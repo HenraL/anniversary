@@ -94,11 +94,9 @@ export default function PageContent({ lang }: { lang: Lang }) {
   const t = content[lang];
   const otherLang: Lang = lang === "en" ? "fr" : "en";
 
-  const basePath = lang === "en" ? "/en/" : "/";
-
   const navLinks = t.nav.map((label, i) => ({
     label,
-    href: `${basePath}#${navIds[i]}`,
+    href: `#${navIds[i]}`,
   }));
 
   return (
@@ -106,7 +104,7 @@ export default function PageContent({ lang }: { lang: Lang }) {
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-anniversary-100">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <a
-            href={lang === "en" ? "/en/" : "/"}
+            href="../"
             className="font-display text-sm tracking-widest text-blue-dark uppercase hover:text-anniversary-500 transition-colors"
           >
             Sophie & Edouard
@@ -125,7 +123,7 @@ export default function PageContent({ lang }: { lang: Lang }) {
             ))}
             <span className="w-px h-4 bg-anniversary-200" />
             <a
-              href={`/${otherLang}/`}
+              href={`../${otherLang}/`}
               className="font-medium text-blue-dark hover:text-blue-card transition-colors"
             >
               {otherLang.toUpperCase()}
@@ -135,7 +133,7 @@ export default function PageContent({ lang }: { lang: Lang }) {
           {/* Mobile */}
           <div className="flex md:hidden items-center gap-3">
             <a
-              href={`/${otherLang}/`}
+              href={`../${otherLang}/`}
               className="text-xs font-medium text-blue-dark hover:text-blue-card transition-colors uppercase"
             >
               {otherLang.toUpperCase()}
