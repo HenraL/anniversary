@@ -22,7 +22,7 @@
 # PROJECT: AsperHeader
 # FILE: nextts.yml
 # CREATION DATE: 28-07-2026
-# LAST Modified: 14:2:14 28-07-2026
+# LAST Modified: 14:4:35 28-07-2026
 # DESCRIPTION:
 # This is the flow in charge of deploying the page
 # /STOP
@@ -67,11 +67,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-      - name: Enter project
-        run: cd ${{env.CWD}}
       - name: Detect package manager
         id: detect-package-manager
         run: |
+          cd ${{env.CWD}}
+          echo "DEBUG: BEGIN"
+          ls -a
+          echo "DEBUG: END"
           if [ -f "./yarn.lock" ]; then
             echo "manager=yarn" >> $GITHUB_OUTPUT
             echo "command=install" >> $GITHUB_OUTPUT
