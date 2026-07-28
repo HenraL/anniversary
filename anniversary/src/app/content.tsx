@@ -1,3 +1,5 @@
+import NavClient from "./NavClient";
+
 interface ScheduleItem {
   time: string;
   label: string;
@@ -10,6 +12,7 @@ interface Content {
   schedule: { heading: string; items: ScheduleItem[] };
   dressCode: { heading: string; body: string };
   venue: { heading: string; address: string };
+  parking: { heading: string; body: string };
   brunch: { heading: string; body: string };
   footer: string;
 }
@@ -18,7 +21,7 @@ type Lang = "en" | "fr";
 
 const content: Record<Lang, Content> = {
   en: {
-    nav: ["Celebration", "Schedule", "Dress Code", "Venue", "Brunch"],
+    nav: ["Celebration", "Schedule", "Dress Code", "Venue", "Parking", "Brunch"],
     hero: { title: "25 Years Party", subtitle: "Sophie & Edouard", date: "29 August 2026 · from 19h00" },
     celebration: {
       heading: "The Celebration",
@@ -28,26 +31,28 @@ const content: Record<Lang, Content> = {
       heading: "Evening Schedule",
       items: [
         { time: "19h00", label: "Welcome Cocktail" },
-        { time: "21h00", label: "Sit-down Supper" },
-        { time: "23h00", label: "Dancing" },
       ],
     },
     dressCode: {
       heading: "Dress Code",
-      body: "Chic — and bring your dancing shoes!",
+      body: "Black tie — and bring your dancing shoes!",
     },
     venue: {
       heading: "Venue",
       address: "10 Voie Romaine, 14440 Douvres-la-Délivrande, France",
     },
+    parking: {
+      heading: "Parking",
+      body: "Please do not enter via the main entrance with your car. Parking is available around the back of the property.",
+    },
     brunch: {
       heading: "Next-Day Brunch",
-      body: "Join us the morning after for a relaxed brunch to continue the celebrations. Details to follow — check back here or reach out to Sophie or Edouard.",
+      body: "Join us the morning after at 11am for a relaxed brunch at the same venue to continue the celebrations.",
     },
     footer: "Made with love for Sophie & Edouard's 25th Anniversary",
   },
   fr: {
-    nav: ["Célébration", "Programme", "Code vestimentaire", "Lieu", "Brunch"],
+    nav: ["Célébration", "Programme", "Code vestimentaire", "Lieu", "Stationnement", "Brunch"],
     hero: { title: "Fête des 25 Ans", subtitle: "Sophie & Edouard", date: "29 août 2026 · dès 19h00" },
     celebration: {
       heading: "La Fête",
@@ -57,27 +62,29 @@ const content: Record<Lang, Content> = {
       heading: "Programme de la Soirée",
       items: [
         { time: "19h00", label: "Cocktail de Bienvenue" },
-        { time: "21h00", label: "Dîner Assis" },
-        { time: "23h00", label: "Danse" },
       ],
     },
     dressCode: {
       heading: "Code Vestimentaire",
-      body: "Chic — et apportez vos chaussures de danse !",
+      body: "Black tie — et apportez vos chaussures de danse !",
     },
     venue: {
       heading: "Lieu",
       address: "10 Voie Romaine, 14440 Douvres-la-Délivrande, France",
     },
+    parking: {
+      heading: "Stationnement",
+      body: "Merci de ne pas entrer par l'entrée principale avec votre voiture. Le stationnement se trouve à l'arrière de la propriété.",
+    },
     brunch: {
       heading: "Brunch du Lendemain",
-      body: "Retrouvez-nous le lendemain matin pour un brunch décontracté et prolonger les festivités. Les détails suivront — revenez ici ou contactez Sophie ou Edouard.",
+      body: "Retrouvez-nous le lendemain matin à 11h pour un brunch décontracté au même endroit pour prolonger les festivités.",
     },
     footer: "Réalisé avec amour pour les 25 Ans de Sophie & Edouard",
   },
 };
 
-const navIds = ["celebration", "schedule", "dress-code", "venue", "brunch"];
+const navIds = ["celebration", "schedule", "dress-code", "venue", "parking", "brunch"];
 
 function Section({ id, className = "", children }: { id: string; className?: string; children: React.ReactNode }) {
   return (
@@ -110,53 +117,12 @@ export default function PageContent({ lang }: { lang: Lang }) {
             Sophie & Edouard
           </a>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6 text-xs uppercase tracking-widest text-blue-dark">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="hover:text-blue-card transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-            <span className="w-px h-4 bg-anniversary-200" />
-            <a
-              href={`../${otherLang}/`}
-              className="font-medium text-blue-dark hover:text-blue-card transition-colors"
-            >
-              {otherLang.toUpperCase()}
-            </a>
-          </nav>
-
-          {/* Mobile */}
-          <div className="flex md:hidden items-center gap-3">
-            <a
-              href={`../${otherLang}/`}
-              className="text-xs font-medium text-blue-dark hover:text-blue-card transition-colors uppercase"
-            >
-              {otherLang.toUpperCase()}
-            </a>
-            <details className="group">
-              <summary className="list-none text-blue-dark cursor-pointer">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </summary>
-              <nav className="absolute right-0 top-full bg-white border border-anniversary-200 rounded-lg shadow-lg py-3 px-5 flex flex-col gap-3 text-xs uppercase tracking-widest text-blue-dark min-w-48">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className="hover:text-blue-dark transition-colors py-1"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
-            </details>
-          </div>
+          {/* Desktop + Mobile nav */}
+          <NavClient
+            links={navLinks}
+            otherLangHref={`../${otherLang}/`}
+            otherLangLabel={otherLang.toUpperCase()}
+          />
         </div>
       </header>
 
@@ -247,6 +213,28 @@ export default function PageContent({ lang }: { lang: Lang }) {
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"
               title="Venue location"
+            />
+          </div>
+        </Section>
+
+        {/* ── Parking ── */}
+        <Section id="parking" className="bg-white/50">
+          <h2 className="font-display text-3xl md:text-4xl text-anniversary-900 mb-6 text-center">
+            {t.parking.heading}
+          </h2>
+          <p className="text-anniversary-600 leading-relaxed max-w-xl mx-auto text-center text-sm md:text-base mb-8">
+            {t.parking.body}
+          </p>
+          <div className="w-full max-w-2xl mx-auto overflow-hidden rounded-lg border border-anniversary-100 shadow-sm">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sfr!4v1785257822679!5m2!1sen!2sfr!6m8!1m7!1svlAfbMZ8dfmML_3wUvBWfA!2m2!1d49.29402700697712!2d-0.3925219611946101!3f90.89461841910381!4f-36.06674466026493!5f0.7820865974627469"
+              width="100%"
+              height="350"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              title="Parking entrance location"
             />
           </div>
         </Section>
