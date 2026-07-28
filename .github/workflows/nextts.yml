@@ -93,6 +93,7 @@ jobs:
           cache: ${{ steps.detect-package-manager.outputs.manager }}
           cache-dependency-path: ${{ env.CWD }}/package-lock.json
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v6
         with:
           static_site_generator: next
@@ -110,6 +111,8 @@ jobs:
       - name: Build with Next.js
         working-directory: ./anniversary
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
