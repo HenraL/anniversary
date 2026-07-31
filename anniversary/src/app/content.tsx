@@ -117,8 +117,8 @@ export default function PageContent({ lang }: { lang: Lang }) {
         {/* ── Hero ── */}
         <section className="w-full flex flex-col items-center justify-center px-4 pt-28 pb-20 text-center bg-blue-card">
           <img
-            src="../moomintroll-1.svg"
-            alt="Moomintroll"
+            src="../troll.svg"
+            alt="troll"
             className="w-32 md:w-40 mb-6"
           />
           <h1 className="font-display text-5xl md:text-7xl leading-tight text-white mb-3">
