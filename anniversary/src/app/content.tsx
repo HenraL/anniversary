@@ -23,7 +23,7 @@ const content: Record<Lang, Content> = {
     },
     dressCode: {
       heading: "Dress Code",
-      body: "Black tie is welcome, otherwise cocktail chic",
+      body: "Black tie is welcome or cocktail chic, but most importantly wear what makes you feel great, we know traveling doesn't leave room to pack the kitchen sink",
       footAttire:
         "Foot attire: there is a proper dance floor for your groovy moves, but everywhere else is lawn.",
     },
@@ -51,7 +51,7 @@ const content: Record<Lang, Content> = {
     },
     dressCode: {
       heading: "Code Vestimentaire",
-      body: "La black tie est la bienvenue, sinon cocktail chic",
+      body: "Le smoking ou le cocktail chic sont les bienvenus, mais surtout, portez ce qui vous fait vous sentir bien, nous savons qu'il est difficile de faire entrer une maison dans une valise",
       footAttire:
         "Chaussures : il y a une vraie piste de danse pour vos pas les plus groovy, mais partout ailleurs c'est de la pelouse.",
     },
@@ -116,6 +116,11 @@ export default function PageContent({ lang }: { lang: Lang }) {
       <main className="flex flex-col items-center">
         {/* ── Hero ── */}
         <section className="w-full flex flex-col items-center justify-center px-4 pt-28 pb-20 text-center bg-blue-card">
+          <img
+            src="../moomintroll-1.svg"
+            alt="Moomintroll"
+            className="w-32 md:w-40 mb-6"
+          />
           <h1 className="font-display text-5xl md:text-7xl leading-tight text-white mb-3">
             {t.hero.title}
           </h1>
@@ -132,7 +137,7 @@ export default function PageContent({ lang }: { lang: Lang }) {
           <p className="mt-4 text-sm text-white/70 tracking-widest">
             10 Voie Romaine
             <br />
-            Douvres-la-Délivrande
+            14440 Douvres-la-Délivrande
           </p>
         </section>
 
