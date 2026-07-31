@@ -16,23 +16,27 @@ export default function NavClient({
   useEffect(() => {
     const ids = links.map((l) => l.href.slice(1));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
-          }
+    const onScroll = () => {
+      const offset = 120;
+      let current = ids[0] || "";
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top - offset <= 0) {
+          current = id;
+        } else {
+          break;
         }
-      },
-      { threshold: 0.3, rootMargin: "-80px 0px -40% 0px" },
-    );
+      }
+      setActive(current);
+    };
 
-    for (const id of ids) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    }
-
-    return () => observer.disconnect();
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, [links]);
 
   return (
