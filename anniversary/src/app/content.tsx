@@ -1,17 +1,10 @@
 import NavClient from "./NavClient";
 
-interface ScheduleItem {
-  time: string;
-  label: string;
-}
-
 interface Content {
   nav: string[];
-  hero: { title: string; subtitle: string; date: string };
-  celebration: { heading: string; body: string };
-  schedule: { heading: string; items: ScheduleItem[] };
-  dressCode: { heading: string; body: string };
-  venue: { heading: string; address: string };
+  hero: { title: string; subtitle: string; date: string; followup: string };
+  dressCode: { heading: string; body: string; footAttire: string };
+  address: { heading: string; address: string };
   parking: { heading: string; body: string };
   brunch: { heading: string; body: string };
   footer: string;
@@ -21,70 +14,64 @@ type Lang = "en" | "fr";
 
 const content: Record<Lang, Content> = {
   en: {
-    nav: ["Celebration", "Schedule", "Dress Code", "Venue", "Parking", "Brunch"],
-    hero: { title: "25 Years Party", subtitle: "Sophie & Edouard", date: "29 August 2026 · from 19h00" },
-    celebration: {
-      heading: "The Celebration",
-      body: "Sophie & Edouard would love for you to join them to celebrate 25 years of their anglo-french alliance. An evening of love, laughter, and dancing at their home in Normandy.",
-    },
-    schedule: {
-      heading: "Evening Schedule",
-      items: [
-        { time: "19h00", label: "Welcome Cocktail" },
-      ],
+    nav: ["Dress Code", "Address", "Parking", "Brunch"],
+    hero: {
+      title: "The Party",
+      subtitle: "Sophie & Edouard",
+      date: "29 August 2026 · Cocktails from 19h00",
+      followup: "Followed by supper",
     },
     dressCode: {
       heading: "Dress Code",
-      body: "Black tie — and bring your dancing shoes!",
+      body: "Black tie is welcome, otherwise cocktail chic",
+      footAttire:
+        "Foot attire: there is a proper dance floor for your groovy moves, but everywhere else is lawn.",
     },
-    venue: {
-      heading: "Venue",
+    address: {
+      heading: "Address",
       address: "10 Voie Romaine, 14440 Douvres-la-Délivrande, France",
     },
     parking: {
       heading: "Parking",
-      body: "Please do not enter via the main entrance with your car. Parking is available around the back of the property.",
+      body: "Please do not enter via the main entrance with your car. Parking is available around the back of the property, follow the signs.",
     },
     brunch: {
       heading: "Next-Day Brunch",
-      body: "Join us the morning after at 11am for a relaxed brunch at the same venue to continue the celebrations.",
+      body: "Join us from 11am for an informal brunch to continue the celebrations.",
     },
-    footer: "Made with love for Sophie & Edouard's 25th Anniversary",
+    footer: "Made with love for Sophie & Edouard",
   },
   fr: {
-    nav: ["Célébration", "Programme", "Code vestimentaire", "Lieu", "Stationnement", "Brunch"],
-    hero: { title: "Fête des 25 Ans", subtitle: "Sophie & Edouard", date: "29 août 2026 · dès 19h00" },
-    celebration: {
-      heading: "La Fête",
-      body: "Sophie & Edouard seraient ravis de vous accueillir pour célébrer 25 ans de leur alliance anglo-française. Une soirée d'amour, de rires et de danse dans leur maison en Normandie.",
-    },
-    schedule: {
-      heading: "Programme de la Soirée",
-      items: [
-        { time: "19h00", label: "Cocktail de Bienvenue" },
-      ],
+    nav: ["Code vestimentaire", "Adresse", "Stationnement", "Brunch"],
+    hero: {
+      title: "La fête",
+      subtitle: "Sophie & Edouard",
+      date: "29 août 2026 · Cocktails dès 19h00",
+      followup: "Suivi d'un dîner",
     },
     dressCode: {
       heading: "Code Vestimentaire",
-      body: "Black tie — et apportez vos chaussures de danse !",
+      body: "La black tie est la bienvenue, sinon cocktail chic",
+      footAttire:
+        "Chaussures : il y a une vraie piste de danse pour vos pas les plus groovy, mais partout ailleurs c'est de la pelouse.",
     },
-    venue: {
-      heading: "Lieu",
+    address: {
+      heading: "Adresse",
       address: "10 Voie Romaine, 14440 Douvres-la-Délivrande, France",
     },
     parking: {
       heading: "Stationnement",
-      body: "Merci de ne pas entrer par l'entrée principale avec votre voiture. Le stationnement se trouve à l'arrière de la propriété.",
+      body: "Merci de ne pas entrer par l'entrée principale avec votre voiture. Le stationnement se trouve à l'arrière de la propriété, suivez les panneaux.",
     },
     brunch: {
       heading: "Brunch du Lendemain",
-      body: "Retrouvez-nous le lendemain matin à 11h pour un brunch décontracté au même endroit pour prolonger les festivités.",
+      body: "Retrouvez-nous dès 11h pour un brunch informel afin de prolonger les festivités.",
     },
-    footer: "Réalisé avec amour pour les 25 Ans de Sophie & Edouard",
+    footer: "Réalisé avec amour pour Sophie & Edouard",
   },
 };
 
-const navIds = ["celebration", "schedule", "dress-code", "venue", "parking", "brunch"];
+const navIds = ["dress-code", "address", "parking", "brunch"];
 
 function Section({ id, className = "", children }: { id: string; className?: string; children: React.ReactNode }) {
   return (
@@ -129,9 +116,6 @@ export default function PageContent({ lang }: { lang: Lang }) {
       <main className="flex flex-col items-center">
         {/* ── Hero ── */}
         <section className="w-full flex flex-col items-center justify-center px-4 pt-28 pb-20 text-center bg-blue-card">
-          <p className="text-xs uppercase tracking-[0.3em] text-white mb-6 font-medium">
-            {lang === "en" ? "25th Anniversary" : "25e Anniversaire"}
-          </p>
           <h1 className="font-display text-5xl md:text-7xl leading-tight text-white mb-3">
             {t.hero.title}
           </h1>
@@ -139,46 +123,18 @@ export default function PageContent({ lang }: { lang: Lang }) {
             {t.hero.subtitle}
           </p>
           <div className="mt-10 w-16 h-px bg-white/50" />
-          <p className="mt-8 text-sm text-white/70 uppercase tracking-widest">
+          <p className="mt-8 text-sm text-white/70 tracking-widest">
             {t.hero.date}
           </p>
-          <p className="mt-1 text-sm text-white/70 uppercase tracking-widest">
-            10 Voie Romaine · Douvres-la-Délivrande
+          <p className="mt-1 text-sm text-white/70 tracking-widest">
+            {t.hero.followup}
+          </p>
+          <p className="mt-4 text-sm text-white/70 tracking-widest">
+            10 Voie Romaine
+            <br />
+            Douvres-la-Délivrande
           </p>
         </section>
-
-        {/* ── Celebration ── */}
-        <Section id="celebration" className="bg-white/50">
-          <h2 className="font-display text-3xl md:text-4xl text-anniversary-900 mb-6 text-center">
-            {t.celebration.heading}
-          </h2>
-          <p className="text-anniversary-600 leading-relaxed max-w-xl mx-auto text-center text-sm md:text-base">
-            {t.celebration.body}
-          </p>
-        </Section>
-
-        {/* ── Schedule ── */}
-        <Section id="schedule">
-          <h2 className="font-display text-3xl md:text-4xl text-anniversary-900 mb-10 text-center">
-            {t.schedule.heading}
-          </h2>
-          <div className="max-w-md mx-auto space-y-6">
-            {t.schedule.items.map((item, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-5 bg-white rounded-lg px-6 py-4 border border-anniversary-100"
-              >
-                <span className="font-display text-2xl text-blue-dark w-16 shrink-0">
-                  {item.time}
-                </span>
-                <span className="w-px h-8 bg-anniversary-200 shrink-0" />
-                <span className="text-sm text-anniversary-700 uppercase tracking-widest">
-                  {item.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </Section>
 
         {/* ── Dress Code ── */}
         <Section id="dress-code" className="bg-white/50">
@@ -188,6 +144,9 @@ export default function PageContent({ lang }: { lang: Lang }) {
           <p className="text-anniversary-600 leading-relaxed max-w-xl mx-auto text-center text-sm md:text-base">
             {t.dressCode.body}
           </p>
+          <p className="text-anniversary-600 leading-relaxed max-w-xl mx-auto text-center text-sm md:text-base mt-4">
+            {t.dressCode.footAttire}
+          </p>
           <div className="mt-6 flex justify-center gap-3 text-anniversary-400">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724a1 1 0 01-.553-.894V7.618a1 1 0 01.553-.894L9 4m0 16l5.447-2.724a1 1 0 00.553-.894V7.618a1 1 0 00-.553-.894L9 4m0 16V4" />
@@ -195,13 +154,13 @@ export default function PageContent({ lang }: { lang: Lang }) {
           </div>
         </Section>
 
-        {/* ── Venue ── */}
-        <Section id="venue">
+        {/* ── Address ── */}
+        <Section id="address">
           <h2 className="font-display text-3xl md:text-4xl text-anniversary-900 mb-6 text-center">
-            {t.venue.heading}
+            {t.address.heading}
           </h2>
           <p className="text-anniversary-600 text-sm text-center mb-6">
-            {t.venue.address}
+            {t.address.address}
           </p>
           <div className="w-full max-w-2xl mx-auto overflow-hidden rounded-lg border border-anniversary-100 shadow-sm">
             <iframe
@@ -212,7 +171,7 @@ export default function PageContent({ lang }: { lang: Lang }) {
               allowFullScreen
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"
-              title="Venue location"
+              title="Address location"
             />
           </div>
         </Section>
@@ -251,7 +210,7 @@ export default function PageContent({ lang }: { lang: Lang }) {
 
         {/* ── Footer ── */}
         <footer className="w-full border-t border-anniversary-100 py-8 mt-8">
-          <p className="text-center text-[10px] uppercase tracking-[0.25em] text-anniversary-400">
+          <p className="text-center text-[10px] tracking-[0.25em] text-anniversary-400">
             {t.footer}
           </p>
         </footer>

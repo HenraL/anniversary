@@ -18,9 +18,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: "Sophie & Edouard — 25th Anniversary",
+  title: "Sophie & Edouard — The Party",
   description:
-    "Celebrate Sophie and Edouard's 25th wedding anniversary — 25 ans de mariage de Sophie et Edouard Letellier.",
+    "Join Sophie & Edouard for their party — une fête chez Sophie et Edouard Letellier.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
