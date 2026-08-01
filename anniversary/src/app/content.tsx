@@ -3,7 +3,7 @@ import NavClient from "./NavClient";
 interface Content {
   nav: string[];
   hero: { title: string; subtitle: string; date: string; followup: string };
-  dressCode: { heading: string; body: string; footAttire: string };
+  dressCode: { heading: string; body: string; footAttire: string; weather: string };
   address: { heading: string; address: string };
   parking: { heading: string; body: string };
   brunch: { heading: string; body: string };
@@ -19,13 +19,15 @@ const content: Record<Lang, Content> = {
       title: "The Party",
       subtitle: "Sophie & Edouard",
       date: "29 August 2026 · Cocktails from 19h00",
-      followup: "Followed by supper",
+      followup: "Followed by dinner",
     },
     dressCode: {
       heading: "Dress Code",
       body: "Black tie is welcome or cocktail chic, but most importantly wear what makes you feel great, we know traveling doesn't leave room to pack the kitchen sink.",
       footAttire:
         "Foot attire: there is a proper dance floor for your groovy moves, but everywhere else is lawn.",
+      weather:
+        "Don't forget this is Normandy, where the weather treats the forecast as a suggestion, hope for sunshine but prepare for rain just in case.",
     },
     address: {
       heading: "Address",
@@ -54,6 +56,8 @@ const content: Record<Lang, Content> = {
       body: "Le smoking ou le cocktail chic sont les bienvenus, mais surtout, portez ce qui vous fait vous sentir bien, nous savons qu'il est difficile de faire entrer une maison dans une valise.",
       footAttire:
         "Chaussures : il y a une vraie piste de danse pour vos pas les plus groovy, mais partout ailleurs c'est de la pelouse.",
+      weather:
+        "N'oubliez pas que nous sommes en Normandie, où la météo traite les prévisions comme une suggestion, espérez du soleil mais préparez-vous à la pluie.",
     },
     address: {
       heading: "Adresse",
@@ -152,10 +156,15 @@ export default function PageContent({ lang }: { lang: Lang }) {
           <p className="text-anniversary-600 leading-relaxed max-w-xl mx-auto text-center text-sm md:text-base mt-4">
             {t.dressCode.footAttire}
           </p>
-          <div className="mt-6 flex justify-center gap-3 text-anniversary-400">
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724a1 1 0 01-.553-.894V7.618a1 1 0 01.553-.894L9 4m0 16l5.447-2.724a1 1 0 00.553-.894V7.618a1 1 0 00-.553-.894L9 4m0 16V4" />
-            </svg>
+          <p className="text-anniversary-600 leading-relaxed max-w-xl mx-auto text-center text-sm md:text-base mt-4">
+            {t.dressCode.weather}
+          </p>
+          <div className="mt-8 flex justify-center">
+            <img
+              src="../4_saisons_normandie.jpg"
+              alt="4 saisons en Normandie"
+              className="max-w-full h-auto rounded-lg shadow-sm border border-anniversary-100"
+            />
           </div>
         </Section>
 
