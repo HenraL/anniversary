@@ -5,7 +5,7 @@ interface Content {
   hero: { title: string; subtitle: string; date: string; followup: string };
   dressCode: { heading: string; body: string; footAttire: string; weather: string };
   address: { heading: string; address: string };
-  parking: { heading: string; body: string };
+  parking: { heading: string; body: string[] };
   brunch: { heading: string; body: string };
   footer: string;
 }
@@ -35,7 +35,10 @@ const content: Record<Lang, Content> = {
     },
     parking: {
       heading: "Parking",
-      body: "Please do not enter via the main entrance with your car. Parking is available around the back of the property, follow the signs.",
+      body: [
+        "Please do not enter via the main entrance with your car.",
+        "Parking is available around the back of the property, follow the signs.",
+      ],
     },
     brunch: {
       heading: "Next-Day Brunch",
@@ -65,11 +68,14 @@ const content: Record<Lang, Content> = {
     },
     parking: {
       heading: "Stationnement",
-      body: "Merci de ne pas entrer par l'entrée principale avec votre voiture. Le stationnement se trouve à l'arrière de la propriété, suivez les panneaux.",
+      body: [
+        "Merci de ne pas entrer par l'entrée principale avec votre voiture.",
+        "Le stationnement se trouve à l'arrière de la propriété, suivez les panneaux.",
+      ],
     },
     brunch: {
       heading: "Brunch du Lendemain",
-      body: "Retrouvez-nous dès 11h pour un brunch informel afin de prolonger les festivités.",
+      body: "Retrouvez-nous dès 11h pour un brunch informel afin de prolonger les\u00A0festivités.",
     },
     footer: "Réalisé avec amour pour Sophie & Edouard",
   },
@@ -195,9 +201,14 @@ export default function PageContent({ lang }: { lang: Lang }) {
           <h2 className="font-display text-3xl md:text-4xl text-anniversary-900 mb-6 text-center">
             {t.parking.heading}
           </h2>
-          <p className="text-anniversary-600 leading-relaxed max-w-xl mx-auto text-center text-sm md:text-base mb-8">
-            {t.parking.body}
-          </p>
+          {t.parking.body.map((p, i) => (
+            <p
+              key={i}
+              className="text-anniversary-600 leading-relaxed max-w-xl mx-auto text-center text-sm md:text-base mb-4"
+            >
+              {p}
+            </p>
+          ))}
           <div className="w-full max-w-2xl mx-auto overflow-hidden rounded-lg border border-anniversary-100 shadow-sm">
             <iframe
               src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sfr!4v1785257822679!5m2!1sen!2sfr!6m8!1m7!1svlAfbMZ8dfmML_3wUvBWfA!2m2!1d49.29402700697712!2d-0.3925219611946101!3f90.89461841910381!4f-36.06674466026493!5f0.7820865974627469"
