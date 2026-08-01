@@ -60,7 +60,7 @@ const content: Record<Lang, Content> = {
       footAttire:
         "Chaussures : il y a une vraie piste de danse pour vos pas les plus groovy, mais partout ailleurs c'est de la pelouse.",
       weather:
-        "N'oubliez pas que nous sommes en Normandie, où la météo traite les prévisions comme une suggestion, espérez du soleil mais préparez-vous à la pluie.",
+        "N'oubliez pas que nous sommes en Normandie, où la météo traite les prévisions comme une suggestion, espérez du soleil mais préparez-vous à la\u00A0pluie.",
     },
     address: {
       heading: "Adresse",
