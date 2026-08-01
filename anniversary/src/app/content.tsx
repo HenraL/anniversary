@@ -102,7 +102,7 @@ export default function PageContent({ lang }: { lang: Lang }) {
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-anniversary-100">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <a
-            href="../"
+            href={`../${lang}/`}
             className="font-display text-sm tracking-widest text-blue-dark uppercase hover:text-anniversary-500 transition-colors"
           >
             Sophie & Edouard

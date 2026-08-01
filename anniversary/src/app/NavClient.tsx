@@ -18,7 +18,7 @@ export default function NavClient({
 
     const onScroll = () => {
       const offset = 120;
-      let current = ids[0] || "";
+      let current = "";
       for (const id of ids) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top - offset <= 0) {
@@ -26,6 +26,12 @@ export default function NavClient({
         } else {
           break;
         }
+      }
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 4;
+      if (atBottom && ids.length > 0) {
+        current = ids[ids.length - 1];
       }
       setActive(current);
     };
