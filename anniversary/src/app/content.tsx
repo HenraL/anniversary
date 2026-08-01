@@ -23,7 +23,7 @@ const content: Record<Lang, Content> = {
     },
     dressCode: {
       heading: "Dress Code",
-      body: "Black tie is welcome or cocktail chic, but most importantly wear what makes you feel great, we know traveling doesn't leave room to pack the kitchen sink.",
+      body: "Black tie is welcome or cocktail chic, but most importantly wear what makes you feel great, we know travelling doesn't leave room to pack the kitchen sink.",
       footAttire:
         "Foot attire: there is a proper dance floor for your groovy moves, but everywhere else is lawn.",
       weather:
