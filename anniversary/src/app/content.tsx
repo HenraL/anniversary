@@ -6,6 +6,15 @@ interface Content {
   dressCode: { heading: string; body: string; footAttire: string; weather: string };
   address: { heading: string; address: string };
   parking: { heading: string; body: string[] };
+  exhibition: {
+    heading: string;
+    subheading: string;
+    body: string;
+    dates: string;
+    location: string;
+    cta: string;
+    ctaUrl: string;
+  };
   brunch: { heading: string; body: string };
   footer: string;
 }
@@ -14,7 +23,7 @@ type Lang = "en" | "fr";
 
 const content: Record<Lang, Content> = {
   en: {
-    nav: ["Dress Code", "Address", "Parking", "Brunch"],
+    nav: ["Dress Code", "Address", "Parking", "Exhibition", "Brunch"],
     hero: {
       title: "The Party",
       subtitle: "Sophie & Edouard",
@@ -40,6 +49,15 @@ const content: Record<Lang, Content> = {
         "Parking is available around the back of the property, follow the signs.",
       ],
     },
+    exhibition: {
+      heading: "Standing with Giants",
+      subheading: "Temporary exhibition — British Normandy Memorial",
+      body: "Back by popular demand, don't miss the silhouettes overlooking the beaches. A moving tribute well worth a visit if you have time around the weekend.",
+      dates: "Silhouettes arrived Sunday 12 April — full installation Saturday 25 April to Saturday 19 September 2026.",
+      location: "British Normandy Memorial, 13 Avenue Paul Poret, 14114 Ver-sur-Mer",
+      cta: "standingwithgiants.co.uk",
+      ctaUrl: "https://www.standingwithgiants.co.uk/normandy-26",
+    },
     brunch: {
       heading: "Next-Day Brunch",
       body: "Join us from 11am for an informal brunch to continue the celebrations.",
@@ -47,7 +65,7 @@ const content: Record<Lang, Content> = {
     footer: "Made with love for Sophie & Edouard",
   },
   fr: {
-    nav: ["Code vestimentaire", "Adresse", "Stationnement", "Brunch"],
+    nav: ["Code vestimentaire", "Adresse", "Stationnement", "Exposition", "Brunch"],
     hero: {
       title: "La fête",
       subtitle: "Sophie & Edouard",
@@ -73,6 +91,15 @@ const content: Record<Lang, Content> = {
         "Le stationnement se trouve à l'arrière de la propriété, suivez les panneaux.",
       ],
     },
+    exhibition: {
+      heading: "Standing with Giants",
+      subheading: "Exposition temporaire — Mémorial britannique de Normandie",
+      body: "De retour à la demande générale, ne manquez pas les silhouettes surplombant les plages. Un hommage émouvant qui vaut le détour si vous avez un peu de temps autour du week-end.",
+      dates: "Silhouettes arrivées dimanche 12 avril — installation complète du samedi 25 avril au samedi 19 septembre 2026.",
+      location: "Mémorial britannique de Normandie, 13 Avenue Paul Poret, 14114 Ver-sur-Mer",
+      cta: "standingwithgiants.co.uk",
+      ctaUrl: "https://www.standingwithgiants.co.uk/normandy-26",
+    },
     brunch: {
       heading: "Brunch du Lendemain",
       body: "Retrouvez-nous dès 11h pour un brunch informel afin de prolonger les\u00A0festivités.",
@@ -81,7 +108,7 @@ const content: Record<Lang, Content> = {
   },
 };
 
-const navIds = ["dress-code", "address", "parking", "brunch"];
+const navIds = ["dress-code", "address", "parking", "exhibition", "brunch"];
 
 function Section({ id, className = "", children }: { id: string; className?: string; children: React.ReactNode }) {
   return (
@@ -219,6 +246,42 @@ export default function PageContent({ lang }: { lang: Lang }) {
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"
               title="Parking entrance location"
+            />
+          </div>
+        </Section>
+
+        {/* ── Exhibition ── */}
+        <Section id="exhibition">
+          <h2 className="font-display text-3xl md:text-4xl text-anniversary-900 mb-2 text-center">
+            {t.exhibition.heading}
+          </h2>
+          <p className="text-anniversary-500 text-xs uppercase tracking-widest text-center mb-6">
+            {t.exhibition.subheading}
+          </p>
+          <p className="text-anniversary-600 leading-relaxed max-w-xl mx-auto text-center text-sm md:text-base">
+            {t.exhibition.body}
+          </p>
+          <p className="text-anniversary-600 leading-relaxed max-w-xl mx-auto text-center text-sm md:text-base mt-4">
+            {t.exhibition.dates}
+          </p>
+          <p className="text-anniversary-600 text-sm text-center mt-4">
+            {t.exhibition.location}
+          </p>
+          <p className="text-center mt-3">
+            <a
+              href={t.exhibition.ctaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-blue-dark underline underline-offset-4 hover:text-blue-card transition-colors"
+            >
+              {t.exhibition.cta}
+            </a>
+          </p>
+          <div className="mt-8 flex justify-center">
+            <img
+              src="../PANO_2026-08-24_13-40-47.jpg"
+              alt="Standing with Giants — British Normandy Memorial"
+              className="max-w-full h-auto rounded-lg shadow-sm border border-anniversary-100"
             />
           </div>
         </Section>
